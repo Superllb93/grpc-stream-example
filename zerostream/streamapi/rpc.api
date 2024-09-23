@@ -1,0 +1,43 @@
+syntax = "v1"
+
+type Point {
+	Name  string `json:"name"`
+	Value int32  `json:"value"`
+}
+
+type StreamRpcListRequest {
+	Name  string `form:"name"`
+	Value int32  `form:"value"`
+}
+
+type StreamRpcListResponse {
+	List []*Point `json:"list"`
+}
+
+type StreamRpcRecordRequest {
+	Name  string `form:"name"`
+	Value int32  `form:"value"`
+}
+
+type StreamRpcRecordResponse {
+	List []*Point `json:"list"`
+}
+
+type StreamRpcRouteResponse {
+	List []*Point `json:"list"`
+}
+
+@server (
+	prefix: /v1
+	group:  rpc
+)
+service streamapi-api {
+	@handler ListHandler
+	get /rpc/list (StreamRpcListRequest) returns (StreamRpcListResponse)
+
+	@handler RecordHandler
+	get /rpc/record (StreamRpcRecordRequest) returns (StreamRpcRecordResponse)
+
+	@handler RouteHandler
+	get /rpc/route
+}

@@ -1,0 +1,17 @@
+syntax = "v1"
+
+import "rpc.api"
+
+type Request {
+	Name string `path:"name,options=you|me"`
+}
+
+type Response {
+	Message string `json:"message"`
+}
+
+service streamapi-api {
+	@handler StreamapiHandler
+	get /from/:name (Request) returns (Response)
+}
+
